@@ -38,10 +38,11 @@ namespace Minecraft_modsTranslate
 
         private void button_ChooseFolder_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog f = new FolderBrowserDialog();
-            if(f.ShowDialog()== DialogResult.OK && f.SelectedPath.Length!=0)
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath =Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),".minecraft");
+            if(fbd.ShowDialog()== DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
-                textBox1.Text = f.SelectedPath;
+                textBox1.Text = fbd.SelectedPath;
             }
         }
 
