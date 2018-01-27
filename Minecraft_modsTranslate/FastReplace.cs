@@ -72,6 +72,7 @@ namespace Minecraft_modsTranslate
                 indexPass = indexNow;
                 indexNow = source.IndexOfAny(key, indexNow);
             }
+            sb.Append(source.Substring(indexPass, source.Length-indexPass));
             return sb.ToString();
             
         }       

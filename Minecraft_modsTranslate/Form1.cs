@@ -50,13 +50,14 @@ namespace Minecraft_modsTranslate
 
         private void button_Run_Click(object sender, EventArgs e)
         {
+            CC.ReloadFastReplaceDic();
             TranslateAndUpdatingZip(textBox1.Text, "*.jar");
             TranslateAndUpdatingZip(textBox1.Text, "*.zip");
             MessageBox.Show("Success!");
         }
 
         public void TranslateAndUpdatingZip(string path, string searchPattern)
-        {
+        {           
             List<ZipEntity> list_en_US = new List<ZipEntity>();
             List<ZipEntity> list_zh_CN = new List<ZipEntity>();
             List<ZipEntity> list_zh_TW = new List<ZipEntity>();
@@ -128,7 +129,7 @@ namespace Minecraft_modsTranslate
                         {
                             StringBuilder sb_CN = new StringBuilder();
 
-                            CC.ReloadFastReplaceDic();
+                            
 
                             if (checkedListBox1.GetItemChecked(0))
 
@@ -146,12 +147,18 @@ namespace Minecraft_modsTranslate
                                 ms2.Close();
                                 continue;
                             }
+                            if (entity.Name.Contains("blankpattern.json"))
+                            {
+                                Stream zipStream_CN2 = zip.GetInputStream(zip.GetEntry(entity.Name));
+                                StreamReader sr_CNs = new StreamReader(zipStream_CN2, Encoding.UTF8);
+                                System.Diagnostics.Debug.Print(CC.Convert(PrivateFunction.ChineseConverter.ToTraditional(sr_CNs.ReadToEnd())));
 
+                            }
+                                
                             string stringOutput = "";
                             //簡單判斷是否是ini格式
                             if (Path.GetExtension(entity.Name).Replace(".properties", "").Replace(".lang", "") == "")
                             {
-
                                 Ini ini_EN = new Ini(), ini_CN = new Ini(), ini_TW = new Ini();
                                 PrivateFunction.ReadAllIniFile(sb_CN.ToString(), ref ini_CN);
 
@@ -249,25 +256,11 @@ namespace Minecraft_modsTranslate
                             //ms_output.Close();
                         }
                     }
-                    IsIgnore = false;
-                    while (!IsIgnore && PrivateFunction.FileStatusHelper.IsFileOccupied(FileListTemp))
+                    try { zip.CommitUpdate(); }
+                    catch (Exception e1)
                     {
-                        switch (MessageBox.Show(FileListTemp + "\n該檔案已被占用，請自行關閉該檔案，是否繼續?", "檔案被占用啦!!", MessageBoxButtons.AbortRetryIgnore))
-                        {
-                            case DialogResult.Abort:
-                                zip.Close();
-                                return;
-                            case DialogResult.Ignore:
-                                IsIgnore = true;
-                                break;
-                        }
-                    }
-                    if (IsIgnore)
-                    {
-                        zip.Close();
-                        continue;
-                    }                     
-                    zip.CommitUpdate();
+                        MessageBox.Show(String.Format("{0}寫入失敗\n\n錯誤資訊如下：\n\n{1}\n\n請稍後再嘗試", FileListTemp, e1.Message));
+                    }                    
                     zip.Close();
                 }
             }
