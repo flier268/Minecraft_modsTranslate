@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button_ChooseFolder = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.button_Run = new System.Windows.Forms.Button();
@@ -45,21 +45,14 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(317, 72);
+            this.groupBox1.Size = new System.Drawing.Size(345, 72);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Choose Folder";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(28, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(176, 22);
-            this.textBox1.TabIndex = 0;
-            // 
             // button_ChooseFolder
             // 
-            this.button_ChooseFolder.Location = new System.Drawing.Point(210, 29);
+            this.button_ChooseFolder.Location = new System.Drawing.Point(243, 29);
             this.button_ChooseFolder.Name = "button_ChooseFolder";
             this.button_ChooseFolder.Size = new System.Drawing.Size(93, 23);
             this.button_ChooseFolder.TabIndex = 1;
@@ -67,12 +60,19 @@
             this.button_ChooseFolder.UseVisualStyleBackColor = true;
             this.button_ChooseFolder.Click += new System.EventHandler(this.button_ChooseFolder_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 31);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(231, 22);
+            this.textBox1.TabIndex = 0;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkedListBox1);
             this.groupBox2.Location = new System.Drawing.Point(12, 90);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(317, 103);
+            this.groupBox2.Size = new System.Drawing.Size(345, 103);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Setting";
@@ -82,16 +82,16 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Items.AddRange(new object[] {
             "使用語意轉化(建議啟用)",
-            "如果有繁體翻譯則以繁體翻譯為主",
-            "如果簡體繁體都有缺則加入英文翻譯"});
-            this.checkedListBox1.Location = new System.Drawing.Point(26, 21);
+            "如果有繁體翻譯則以繁體翻譯為主(僅key-value格式會套用)",
+            "如果簡體繁體都有缺則加入英文翻譯(僅key-value格式會套用)"});
+            this.checkedListBox1.Location = new System.Drawing.Point(6, 21);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(233, 72);
+            this.checkedListBox1.Size = new System.Drawing.Size(339, 72);
             this.checkedListBox1.TabIndex = 0;
             // 
             // button_Run
             // 
-            this.button_Run.Location = new System.Drawing.Point(38, 199);
+            this.button_Run.Location = new System.Drawing.Point(244, 196);
             this.button_Run.Name = "button_Run";
             this.button_Run.Size = new System.Drawing.Size(104, 43);
             this.button_Run.TabIndex = 1;
@@ -101,7 +101,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(148, 199);
+            this.label1.Location = new System.Drawing.Point(16, 196);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(181, 43);
             this.label1.TabIndex = 2;
@@ -111,7 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 261);
+            this.ClientSize = new System.Drawing.Size(360, 261);
             this.Controls.Add(this.button_Run);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);

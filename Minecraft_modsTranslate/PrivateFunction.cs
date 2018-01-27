@@ -82,7 +82,7 @@ namespace Minecraft_modsTranslate
                         i++;
                     }
                 }
-               
+
             }
 
             public void Load(string[] fileNames)
@@ -136,7 +136,7 @@ namespace Minecraft_modsTranslate
             }
 
             public string Convert(string input)
-            {                
+            {
                 //這個方法最快
                 return FR.ReplaceAll(input);
                 /* 第二快
@@ -151,7 +151,7 @@ namespace Minecraft_modsTranslate
                 {
                     sb.Replace(temp.Key, temp.Value);                    
                 }
-                return input;*/                
+                return input;*/
             }
 
             public void DumpKeys()
@@ -227,7 +227,7 @@ namespace Minecraft_modsTranslate
             Match match;
             Regex m = new Regex(@"^\[(.*)\]");
             Regex m2 = new Regex(@"(.*[^=])\=(.*)");
-            while(!stream.EndOfStream)
+            while (!stream.EndOfStream)
             {
                 temp = stream.ReadLine();
                 if (temp.IndexOf(";") == 0)
@@ -241,14 +241,14 @@ namespace Minecraft_modsTranslate
                 match = m2.Match(temp);
                 if (match.Success)
                     iniBox.Lines.Add(new Line { Section = Sec, Key = match.Groups[1].ToString(), Value = match.Groups[2].ToString() });
-            }            
+            }
         }
 
         public static string IniConvertToText(List<Line> iniBox)
         {
             StringBuilder sb = new StringBuilder();
             var sectionList = iniBox.Select(x => x.Section).Distinct();
-            if (sectionList.FirstOrDefault() != "" && sectionList.FirstOrDefault()!=null)
+            if (sectionList.FirstOrDefault() != "" && sectionList.FirstOrDefault() != null)
             {
                 var g = iniBox.GroupBy(x => x.Section).ToDictionary(x => x.Key, x => x.ToList());
                 foreach (var t in sectionList)
@@ -264,9 +264,29 @@ namespace Minecraft_modsTranslate
             }
             return sb.ToString();
         }
+
+
+        public class FileStatusHelper
+        {
+            [DllImport("kernel32.dll")]
+            private static extern IntPtr _lopen(string lpPathName, int iReadWrite);
+            [DllImport("kernel32.dll")] public static extern bool CloseHandle(IntPtr hObject);
+            private const int OF_READWRITE = 2;
+            private const int OF_SHARE_DENY_NONE = 0x40;
+            private static readonly IntPtr HFILE_ERROR = new IntPtr(-1);
+            /// <summary>
+            /// 檔案室否被占用
+            /// </summary>
+            /// <param name="filePath">檔案路徑</param>
+            /// <returns></returns>
+            public static bool IsFileOccupied(string filePath)
+            {
+                IntPtr vHandle = _lopen(filePath, OF_READWRITE | OF_SHARE_DENY_NONE);
+                CloseHandle(vHandle);
+                return (vHandle == HFILE_ERROR) ? true : false;
+            }
+        }
     }
-
-
 }
 
 
